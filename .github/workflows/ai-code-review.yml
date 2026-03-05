@@ -1,0 +1,31 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ai-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Copilot CLI
+        run: |
+          sudo apt update
+          sudo apt install -y curl jq
+          curl -sSL https://github.com/github/copilot-cli/releases/latest/download/copilot-linux-amd64.tar.gz | tar -xz -C /usr/local/bin
+
+      - name: Authenticate Copilot
+        run: copilot auth login --token ${{ secrets.ai-integration }}
+
+      - name: Run AI Review
+        run: copilot review ./ --format json > report.json
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        run: |
+          COMMENT=$(jq -r '.issues[] | "- \(.message)"' report.json | paste -sd "\n")
+          gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT"
