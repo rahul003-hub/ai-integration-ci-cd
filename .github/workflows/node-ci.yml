@@ -8,7 +8,7 @@ jobs:
 build:
 runs-on: ubuntu-latest
 
-```
+
 steps:
   - name: Checkout repository
     uses: actions/checkout@v4
@@ -21,6 +21,6 @@ steps:
   - name: Install dependencies
     run: npm install
 
-  - name: Run app
+  - name: Run application
     run: node app.js
-```
+
