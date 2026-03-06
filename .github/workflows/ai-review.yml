@@ -1,0 +1,29 @@
+name: AI Code Review (Ollama)
+
+on:
+  pull_request:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Pull CodeLlama model
+        run: ollama pull codellama
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run AI review
+        run: npm run review

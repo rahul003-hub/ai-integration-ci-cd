@@ -1,9 +1,8 @@
 {
-  "name": "node-ci-demo",
+  "name": "ai-code-review",
   "version": "1.0.0",
-  "description": "Node CI/CD demo",
-  "main": "app.js",
+  "type": "module",
   "scripts": {
-    "start": "node app.js"
+    "review": "node ai/ai-review.js"
   }
 }
