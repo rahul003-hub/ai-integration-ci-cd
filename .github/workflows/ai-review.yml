@@ -1,7 +1,9 @@
 name: AI Code Review (Ollama)
 
 on:
-  pull_request:
+  push:   # 👈 Trigger on push instead of pull_request
+    branches:
+      - main   # You can change this to any branch you want
 
 jobs:
   review:
