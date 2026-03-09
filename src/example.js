@@ -1,5 +1,7 @@
 function greet(name) {
-  return "Hello " + name;
+  // mistake: forgot to return
+  console.log("Hello " + name);
 }
 
-console.log(greet("World"));
+// mistake: call without argument
+console.log(greet());
